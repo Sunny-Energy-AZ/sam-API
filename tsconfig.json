@@ -1,9 +1,11 @@
 {
   "compilerOptions": {
+    "skipLibCheck": true,
     "module": "commonjs",
     "esModuleInterop": true,
     "target": "es5",
-    "noImplicitAny": true,
+    "downlevelIteration": true,
+    "noImplicitAny": false,
     "moduleResolution": "node",
     "inlineSourceMap": true,
     "outDir": "dist",

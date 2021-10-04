@@ -1,4 +1,5 @@
-import * as AuthHelper from './auth';
-import * as Validation from './validation';
+import { CONTROLLER_CONSTANTS } from './controller-constant';
 
-export { AuthHelper, Validation };
+export {
+  CONTROLLER_CONSTANTS
+};

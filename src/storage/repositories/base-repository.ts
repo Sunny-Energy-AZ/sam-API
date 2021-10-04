@@ -1,10 +1,14 @@
 import { ModelFactory } from '@models';
-import { RepositoryContext } from './repository-context';
-import { QueryOptions, DeleteResult } from '@storage';
+import { DeleteResult, QueryOptions } from '@storage';
 import { LooseObject } from '@typings';
+import { RepositoryContext } from './repository-context';
 
 export class BaseRepository<T> {
   constructor(protected context: RepositoryContext) {}
+
+  public aggregate(data: LooseObject[]): Promise<T[]> {
+    return this.context.store.aggregate<T>(data, this.modelFactory());
+  }
 
   public getAll(data?: LooseObject, options?: QueryOptions): Promise<T[]> {
     return this.context.store.getAll<T>(data, options, this.modelFactory());
@@ -23,11 +27,11 @@ export class BaseRepository<T> {
   }
 
   public update(filter: LooseObject, dataToUpdate: LooseObject): Promise<T> {
-    return this.context.store.update<T>(
-      filter,
-      dataToUpdate,
-      this.modelFactory(),
-    );
+    return this.context.store.update<T>(filter, dataToUpdate, this.modelFactory());
+  }
+
+  public upsert(filter: LooseObject, dataToUpdate: LooseObject): Promise<T> {
+    return this.context.store.upsert<T>(filter, dataToUpdate, this.modelFactory());
   }
 
   public saveMany(entities: T[]): Promise<T[]> {
