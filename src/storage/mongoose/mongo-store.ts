@@ -3,15 +3,6 @@ import { DeleteResult, IDataStore, QueryOptions } from '@storage';
 import { LooseObject } from '@typings';
 import config from 'config';
 import { connect, ConnectionOptions, Document, Model as MongoosModel, Mongoose, Types } from 'mongoose';
-import { REPOSITORY_CONSTANTS } from '../repositories';
-import account from './account';
-import NSRDBSolarWeather from './nsrdb-solar-weather';
-import orgSetting from './org-setting';
-import organisation from './organisation';
-import proposalTemplate from './proposal-template';
-import session from './session';
-import solarInstallation from './solar-installation';
-import user from './user';
 
 export class MongoStore implements IDataStore {
   public connect(): Promise<Mongoose> {
@@ -206,30 +197,6 @@ export class MongoStore implements IDataStore {
   }
 
   private getModel<T extends BaseModel>(modelFactory: ModelFactory<T>): MongoosModel<Document> {
-    if (modelFactory.getType() === REPOSITORY_CONSTANTS.REPOSITORY_TYPE.ACCOUNT) {
-      return account;
-    }
-    if (modelFactory.getType() === REPOSITORY_CONSTANTS.REPOSITORY_TYPE.ORGANISATION) {
-      return organisation;
-    }
-    if (modelFactory.getType() === REPOSITORY_CONSTANTS.REPOSITORY_TYPE.ORG_SETTING) {
-      return orgSetting;
-    }
-    if (modelFactory.getType() === REPOSITORY_CONSTANTS.REPOSITORY_TYPE.SOLAR_INSTALLATION) {
-      return solarInstallation;
-    }
-    if (modelFactory.getType() === REPOSITORY_CONSTANTS.REPOSITORY_TYPE.SESSION) {
-      return session;
-    }
-    if (modelFactory.getType() === REPOSITORY_CONSTANTS.REPOSITORY_TYPE.USER) {
-      return user;
-    }
-    if (modelFactory.getType() === REPOSITORY_CONSTANTS.REPOSITORY_TYPE.NSRDB_SOLAR_WEATHER) {
-      return NSRDBSolarWeather;
-    }
-    if (modelFactory.getType() === REPOSITORY_CONSTANTS.REPOSITORY_TYPE.PROPOSAL_TEMPLATE) {
-      return proposalTemplate;
-    }
     return null;
   }
 }
