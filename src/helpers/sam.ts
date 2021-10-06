@@ -167,3 +167,49 @@ export const getEnergyConsumption = (
 
   return pvWatts.run();
 };
+
+export const getBatteryWattDataForFirstYear = (
+  enableBattery: number,
+  batteryChemistry: number,
+  batteryCapacityInkWh: number,
+  batteryPowerInkW: number,
+  batteryDispatch: number,
+  chargeFromPV: number[],
+  chargeFromGrid: number[],
+  discharge: number[],
+  chargeFromGridPercenrage: number[],
+  setDischargePercentage: number[],
+  manualDispatchWeekday: number[][],
+  manualDispatchWeekend: number[][],
+  dcArrayPowerInW: number[],
+  hourlyEnergyInW: number[],
+  inverterModel: number,
+  efficiency: number,
+  electricityLoad: number[]
+) => {
+  const sam = new SAM();
+  const battWatts = sam.battWatts();
+
+  battWatts.setEnableBattery(enableBattery);
+  battWatts.setBatteryChemistry(batteryChemistry);
+  battWatts.setBatteryCapacity(batteryCapacityInkWh);
+  battWatts.setBatteryPower(batteryPowerInkW);
+  battWatts.setBatteryDispatch(batteryDispatch);
+  battWatts.setChargeFromPV(chargeFromPV);
+  battWatts.setChargeFromGrid(chargeFromGrid);
+  battWatts.setDischarge(discharge);
+  battWatts.setChargeFromGridPercentage(chargeFromGridPercenrage);
+  battWatts.setDischargePercentage(setDischargePercentage);
+  battWatts.setDispatchManualWeekdaySchedule(manualDispatchWeekday);
+  battWatts.setDispatchManualWeekendSchedule(manualDispatchWeekend);
+  battWatts.setDCPower(dcArrayPowerInW);
+  battWatts.setACPower(hourlyEnergyInW);
+  battWatts.setInverterModel(inverterModel);
+  battWatts.setElectricityLoad(electricityLoad);
+  // sam wants us to specify inverter effieciency if inverter model is > 3
+  if (inverterModel > 3) {
+    battWatts.setInverterEfficiency(efficiency);
+  }
+
+  return battWatts.run();
+};
