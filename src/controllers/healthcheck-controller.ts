@@ -16,11 +16,7 @@ export class HealthCheckController extends BaseController {
     this.router.get(this.basePath, this.runHealthcheck);
   }
 
-  private runHealthcheck = (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ) => {
+  private runHealthcheck = (req: Request, res: Response, next: NextFunction) => {
     res.json({ message: res.__('MESSAGES.HEALTHCHECK') });
-  }
+  };
 }

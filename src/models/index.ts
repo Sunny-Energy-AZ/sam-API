@@ -1,9 +1,9 @@
-import { Account } from './account';
 import { BaseModel } from './base-model';
+import { CONSTANTS as MODEL_CONSTANTS } from './constant';
 import { ModelFactory } from './model-factory';
 
 export {
-  Account,
   BaseModel,
   ModelFactory,
+  MODEL_CONSTANTS
 };

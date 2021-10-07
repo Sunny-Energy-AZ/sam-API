@@ -1,3 +1,10 @@
+import {
+  BaseController,
+  HealthCheckController,
+} from '@controllers';
+import { ErrorHandler } from '@middleware';
+import { EventListeners, logger } from '@server';
+import { AppContext } from '@typings';
 import bodyParser from 'body-parser';
 import config from 'config';
 import express, { Application } from 'express';
@@ -5,15 +12,6 @@ import expressWinston from 'express-winston';
 import { Server } from 'http';
 import i18n from 'i18n';
 import path from 'path';
-
-import {
-  AccountController,
-  BaseController,
-  HealthCheckController,
-} from '@controllers';
-import { ErrorHandler } from '@middleware';
-import { EventListeners, logger } from '@server';
-import { AppContext } from '@typings';
 
 export class App {
   public expressApp: Application;
@@ -39,36 +37,27 @@ export class App {
     i18n.configure({
       autoReload: true,
       directory: path.join(__dirname, '../locales'),
-      objectNotation: true,
+      objectNotation: true
     });
     this.expressApp.use(i18n.init);
 
     this.expressApp.use((req, res, next) => {
       res.setHeader('Access-Control-Allow-Origin', '*');
-      res.setHeader(
-        'Access-Control-Allow-Methods',
-        'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-      );
-      res.setHeader(
-        'Access-Control-Allow-Headers',
-        'Content-Type, Authorization, Accept-Language',
-      );
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Accept-Language');
       next();
     });
 
-    const LOGGER_CONSOLE = config.has('logger.console')
-      ? config.get('logger.console')
-      : false;
+    const LOGGER_CONSOLE = config.has('logger.console') ? config.get('logger.console') : false;
     if (LOGGER_CONSOLE) {
       this.expressApp.use(
         expressWinston.logger({
           winstonInstance: logger,
           meta: false,
-          msg:
-            "request - {{req.ip}} - {{res.statusCode}} - {{req.method}} - {{res.responseTime}}ms - {{req.url}} - {{req.headers['user-agent']}}",
+          msg: "request - {{req.ip}} - {{res.statusCode}} - {{req.method}} - {{res.responseTime}}ms - {{req.url}} - {{req.headers['user-agent']}}",
           expressFormat: false,
-          colorize: true,
-        }),
+          colorize: true
+        })
       );
     }
 
@@ -80,14 +69,13 @@ export class App {
     this.expressApp.use(ErrorHandler.serverErrorHandler);
     this.expressApp.use(
       expressWinston.errorLogger({
-        winstonInstance: logger,
-      }),
+        winstonInstance: logger
+      })
     );
   }
 
   public initializeControllers() {
     const controllers: BaseController[] = [
-      new AccountController(this.ctx),
       new HealthCheckController(this.ctx),
     ];
 

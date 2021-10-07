@@ -4,13 +4,13 @@ const defaultLogLevel = 'info';
 
 const logger = winston.createLogger({
   level: defaultLogLevel,
-  transports: [],
+  transports: []
 });
 
 logger.add(
   new winston.transports.Console({
-    format: winston.format.simple(),
-  }),
+    format: winston.format.simple()
+  })
 );
 
 export default logger;

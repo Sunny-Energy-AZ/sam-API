@@ -7,13 +7,4 @@ import { Logger } from './logger';
 import { LooseObject } from './loose-object';
 import { ValidationFailure } from './validation-failure';
 
-export {
-  AppContext,
-  ErrorPayload,
-  Errors,
-  ExtendedRequest,
-  JwtPayload,
-  Logger,
-  LooseObject,
-  ValidationFailure,
-};
+export { AppContext, ErrorPayload, Errors, ExtendedRequest, JwtPayload, Logger, LooseObject, ValidationFailure };
