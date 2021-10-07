@@ -103,6 +103,9 @@ dist
 # public
 public/solar_resource
 
+# Package-Lock
+package-lock.json
+
 # production
 /build
 /dist
