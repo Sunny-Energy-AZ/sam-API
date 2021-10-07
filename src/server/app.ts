@@ -1,6 +1,7 @@
 import {
   BaseController,
   HealthCheckController,
+  SAMController,
 } from '@controllers';
 import { ErrorHandler } from '@middleware';
 import { EventListeners, logger } from '@server';
@@ -77,6 +78,7 @@ export class App {
   public initializeControllers() {
     const controllers: BaseController[] = [
       new HealthCheckController(this.ctx),
+      new SAMController(this.ctx),
     ];
 
     for (const ctrl of controllers) {
