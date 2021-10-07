@@ -195,13 +195,15 @@ export const getBatteryWattDataForFirstYear = (
   battWatts.setBatteryCapacity(batteryCapacityInkWh);
   battWatts.setBatteryPower(batteryPowerInkW);
   battWatts.setBatteryDispatch(batteryDispatch);
-  battWatts.setChargeFromPV(chargeFromPV);
-  battWatts.setChargeFromGrid(chargeFromGrid);
-  battWatts.setDischarge(discharge);
-  battWatts.setChargeFromGridPercentage(chargeFromGridPercenrage);
-  battWatts.setDischargePercentage(setDischargePercentage);
-  battWatts.setDispatchManualWeekdaySchedule(manualDispatchWeekday);
-  battWatts.setDispatchManualWeekendSchedule(manualDispatchWeekend);
+  if (enableBattery === 1 && batteryDispatch === 4) {
+    battWatts.setChargeFromPV(chargeFromPV);
+    battWatts.setChargeFromGrid(chargeFromGrid);
+    battWatts.setDischarge(discharge);
+    battWatts.setChargeFromGridPercentage(chargeFromGridPercenrage);
+    battWatts.setDischargePercentage(setDischargePercentage);
+    battWatts.setDispatchManualWeekdaySchedule(manualDispatchWeekday);
+    battWatts.setDispatchManualWeekendSchedule(manualDispatchWeekend);
+  }
   battWatts.setDCPower(dcArrayPowerInW);
   battWatts.setACPower(hourlyEnergyInW);
   battWatts.setInverterModel(inverterModel);
