@@ -1,5 +1,9 @@
-import { AccountController } from './account-controller';
 import { BaseController } from './base-controller';
 import { HealthCheckController } from './healthcheck-controller';
+import { SAMController } from './sam-controller';
 
-export { AccountController, BaseController, HealthCheckController };
+export {
+  BaseController,
+  HealthCheckController,
+  SAMController
+};

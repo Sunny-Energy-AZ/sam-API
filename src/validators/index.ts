@@ -1,4 +1,7 @@
-import createAccessTokenValidator from './create-access-token-validator';
-import createAccountValidator from './create-account-validator';
+import pvWattsValidator from './pv-watts-validator';
+import battWattsValidator from './batt-watts-validator';
 
-export { createAccessTokenValidator, createAccountValidator };
+export {
+  pvWattsValidator,
+  battWattsValidator
+};

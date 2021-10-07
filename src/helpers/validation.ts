@@ -1,6 +1,5 @@
-import { validationResult } from 'express-validator';
-
 import { ExtendedRequest, ValidationFailure } from '@typings';
+import { validationResult } from 'express-validator';
 
 export const extractValidationErrors = (req: ExtendedRequest) => {
   const errors = validationResult(req);

@@ -1,3 +1,4 @@
-import { AccountRepository } from './account-repository';
-
-export { AccountRepository };
+import { CONSTANTS as REPOSITORY_CONSTANTS } from './constant';
+export {
+  REPOSITORY_CONSTANTS
+};

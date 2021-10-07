@@ -28,6 +28,16 @@ export class AuthenticationError extends AppError {
 }
 
 // tslint:disable-next-line: max-classes-per-file
+export class ForbiddenError extends AppError {
+  status: string = 'DEFAULT_ERRORS.FORBIDDEN';
+  statusCode: number = 403;
+
+  constructor(msg: string) {
+    super(msg);
+  }
+}
+
+// tslint:disable-next-line: max-classes-per-file
 export class NotFoundError extends AppError {
   status: string = 'DEFAULT_ERRORS.RESOURCE_NOT_FOUND';
   statusCode: number = 404;

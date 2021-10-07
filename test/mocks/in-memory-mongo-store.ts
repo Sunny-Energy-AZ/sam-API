@@ -1,6 +1,6 @@
+import { Mongoose } from '@storage';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { connect, Mongoose as M } from 'mongoose';
-import { Mongoose } from '@storage';
 
 export class InMemoryMongoStore extends Mongoose.MongoStore {
   constructor() {
@@ -14,7 +14,7 @@ export class InMemoryMongoStore extends Mongoose.MongoStore {
       useNewUrlParser: true,
       useCreateIndex: true,
       useFindAndModify: false,
-      useUnifiedTopology: true,
+      useUnifiedTopology: true
     };
     return connect(uri, options);
   }
