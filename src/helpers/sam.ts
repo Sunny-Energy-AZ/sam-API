@@ -4,7 +4,7 @@ import axios from 'axios';
 import config from 'config';
 import csvParse from 'csv-parse';
 import fs from 'fs';
-import { SAM } from 'node-sam-local-test';
+import { SAM } from 'node-sam';
 import path from 'path';
 import { CONTROLLER_CONSTANTS } from './controller-constant';
 
