@@ -1,6 +1,6 @@
 import { SAMHelper, Validation } from '@helpers';
 import { AppContext, Errors, ValidationFailure } from '@typings';
-import { battWattsValidator, pvWattsValidator } from '@validators';
+import { battWattsValidator, pvWattsValidator, utilityRateValidator } from '@validators';
 import { NextFunction, Request, Response, Router } from 'express';
 import { BaseController } from './base-controller';
 
@@ -16,7 +16,7 @@ export class SAMController extends BaseController {
   private initializeRoutes() {
     this.router.post(`${this.basePath}/pv-watts`, pvWattsValidator(this.appContext), this.getPVWattEnergyProduction);
     this.router.post(`${this.basePath}/batt-watts`, battWattsValidator(this.appContext), this.getBattWattEnergyStorage);
-    this.router.post(`${this.basePath}/utility-rates`, battWattsValidator(this.appContext), this.getUtilityRate);
+    this.router.post(`${this.basePath}/utility-rates`, utilityRateValidator(this.appContext), this.getUtilityRate);
   }
 
   private getPVWattEnergyProduction = async (req: Request, res: Response, next: NextFunction) => {
