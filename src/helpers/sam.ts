@@ -215,3 +215,63 @@ export const getBatteryWattDataForFirstYear = (
 
   return battWatts.run();
 };
+
+export const getElectricityRateFor1stYear = (
+  analysisPeriod: number,
+  systemuseLifetimeOutput: number,
+  inflationRate: number,
+  annualEnergyDegradation: number[],
+  enableTimeStepSellRates: number,
+  systemPower: number[],
+  electricalLoad: number[],
+  selectedMonthlyAccountOfExcessGeneration: number,
+  yearEndSellRate: number,
+  monthlyFixedCharge: number,
+  monthlyMinCharge: number,
+  annualMinCharge: number,
+  useNetMetering: number,
+  energyweekdayschedule: number[][],
+  energyweekendschedule: number[][],
+  energyratestructure: number[][],
+  enableDemandCharge: number,
+  demandweekdayschedule: number[][],
+  demandweekendschedule: number[][],
+  demandratestructure: number[][],
+  flatdemandstructure: number[][]
+) => {
+  const sam = new SAM();
+
+  const utilityRate5 = sam.utilityRate5();
+  utilityRate5.setAnalysisPeriod(analysisPeriod); // 1st year
+  utilityRate5.setSystemUseLifetimeOutput(systemuseLifetimeOutput); // hourly first year
+  utilityRate5.setSystemPowerGenerated(systemPower);
+  utilityRate5.setElectricityLoad(electricalLoad);
+
+  utilityRate5.setInflationRate(inflationRate);
+  utilityRate5.setAnnualEnergyDegradation(annualEnergyDegradation);
+
+  utilityRate5.setMeteringOption(selectedMonthlyAccountOfExcessGeneration);
+  utilityRate5.setYearEndSellRate(yearEndSellRate);
+
+  utilityRate5.setMonthlyFixedCharge(monthlyFixedCharge);
+  utilityRate5.setMonthlyMinimumCharge(monthlyMinCharge);
+  utilityRate5.setAnnualMinimumCharge(annualMinCharge);
+
+  utilityRate5.setSellRateEqualToBuyRate(useNetMetering);
+
+  utilityRate5.enableTimeStepSellRates(enableTimeStepSellRates);
+  utilityRate5.setEnergyChargeWeekdaySchedule(energyweekdayschedule);
+  utilityRate5.setEnergyChargeWeekendSchedule(energyweekendschedule);
+  utilityRate5.setEnergyRatesTOUTable(energyratestructure);
+
+  utilityRate5.enableDemandCharge(enableDemandCharge);
+
+  if (enableDemandCharge === 1) {
+    utilityRate5.setDemandChargeWeekdaySchedule(demandweekdayschedule);
+    utilityRate5.setDemandChargeWeekendSchedule(demandweekendschedule);
+    utilityRate5.setDemandRatesTOUTable(demandratestructure);
+    utilityRate5.setDemandRatesFlatTable(flatdemandstructure);
+  }
+
+  return utilityRate5.run();
+};
