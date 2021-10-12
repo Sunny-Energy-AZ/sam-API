@@ -1,6 +1,6 @@
 {
   "name": "sam-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "API library for creating renewable energy system models using SAM Simulation Core (SSC).",
   "main": "./dist/server/server",
   "scripts": {
