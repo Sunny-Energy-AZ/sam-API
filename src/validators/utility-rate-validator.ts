@@ -4,7 +4,7 @@ import { check, ValidationChain } from 'express-validator';
 const utilityRateValidator = (appContext: AppContext): ValidationChain[] => [
   check('analysisPeriod').isInt({ min: 1 }).withMessage('VALIDATION_ERRORS.INVALID_ANALYSIS_PERIOD'),
 
-  check('systemUseLifetimeOutput').isIn([0, 1]).withMessage('VALIDATION_ERRORS.INVALID_SYSTEM_USE_LIFETIME_OUTPUT'),
+  check('systemuseLifetimeOutput').isIn([0, 1]).withMessage('VALIDATION_ERRORS.INVALID_SYSTEM_USE_LIFETIME_OUTPUT'),
 
   check('systemPower').isArray().withMessage('VALIDATION_ERRORS.INVALID_SYSTEM_POWER'),
 
@@ -26,7 +26,7 @@ const utilityRateValidator = (appContext: AppContext): ValidationChain[] => [
 
   check('useNetMetering').isIn([0, 1]).withMessage('VALIDATION_ERRORS.INVALID_NET_METERING'),
 
-  check('isTimeStepSellRatesEnabled').isIn([0, 1]).withMessage('VALIDATION_ERRORS.INVALID_TIME_STEP_ENABLED'),
+  check('enableTimeStepSellRates').isIn([0, 1]).withMessage('VALIDATION_ERRORS.INVALID_TIME_STEP_ENABLED'),
 
   check('timeStepSellRates').custom(async (timeStepSellRates, { req }) => {
     const {
@@ -48,7 +48,7 @@ const utilityRateValidator = (appContext: AppContext): ValidationChain[] => [
 
   check('energyratestructure').isArray().withMessage('VALIDATION_ERRORS.INVALID_ENERGY_RATE_STRUCTURE'),
 
-  check('isDemandChargeEnabled').isIn([0, 1]).withMessage('VALIDATION_ERRORS.INVALID_DEMAND_CHARGE_ENABLED'),
+  check('enableDemandCharge').isIn([0, 1]).withMessage('VALIDATION_ERRORS.INVALID_DEMAND_CHARGE_ENABLED'),
 
   check('demandweekdayschedule').isArray().withMessage('VALIDATION_ERRORS.INVALID_DEMAND_WEEKDAY_SCHEDULE'),
 
