@@ -20,6 +20,8 @@ export class App {
 
   constructor(ctx: AppContext) {
     this.expressApp = express();
+    this.expressApp.use(express.json({ limit: '50mb' }));
+    this.expressApp.use(express.urlencoded({ extended: true }));
     this.ctx = ctx;
   }
 
