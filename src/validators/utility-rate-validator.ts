@@ -50,9 +50,29 @@ const utilityRateValidator = (appContext: AppContext): ValidationChain[] => [
 
   check('enableDemandCharge').isIn([0, 1]).withMessage('VALIDATION_ERRORS.INVALID_DEMAND_CHARGE_ENABLED'),
 
-  check('demandweekdayschedule').isArray().withMessage('VALIDATION_ERRORS.INVALID_DEMAND_WEEKDAY_SCHEDULE'),
+  check('demandweekdayschedule').custom(async (demandweekdayschedule, { req }) => {
+    const {
+      isDemandChargeEnabled
+    } = req.body
 
-  check('demandweekendschedule').isArray().withMessage('VALIDATION_ERRORS.INVALID_DEMAND_WEEKEND_SCHEDULE'),
+    if (isDemandChargeEnabled === 1) {
+      if (!(demandweekdayschedule && demandweekdayschedule.length > 0)) {
+        return Promise.reject();
+      }
+    }
+  }).withMessage('VALIDATION_ERRORS.INVALID_DEMAND_WEEKDAY_SCHEDULE'),
+
+  check('demandweekendschedule').custom(async (demandweekendschedule, { req }) => {
+    const {
+      isDemandChargeEnabled
+    } = req.body
+
+    if (isDemandChargeEnabled === 1) {
+      if (!(demandweekendschedule && demandweekendschedule.length > 0)) {
+        return Promise.reject();
+      }
+    }
+  }).withMessage('VALIDATION_ERRORS.INVALID_DEMAND_WEEKEND_SCHEDULE'),
 
   check('demandratestructure').custom(async (demandRateStructure, { req }) => {
     const {
