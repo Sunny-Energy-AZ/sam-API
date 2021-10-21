@@ -30,10 +30,10 @@ const utilityRateValidator = (appContext: AppContext): ValidationChain[] => [
 
   check('timeStepSellRates').custom(async (timeStepSellRates, { req }) => {
     const {
-      isTimeStepSellRatesEnabled
+      enableTimeStepSellRates
     } = req.body
 
-    if (isTimeStepSellRatesEnabled === 1) {
+    if (enableTimeStepSellRates === 1) {
       if (!(timeStepSellRates && timeStepSellRates.length > 0)) {
         return Promise.reject();
       }
@@ -52,10 +52,10 @@ const utilityRateValidator = (appContext: AppContext): ValidationChain[] => [
 
   check('demandweekdayschedule').custom(async (demandweekdayschedule, { req }) => {
     const {
-      isDemandChargeEnabled
+      enableDemandCharge
     } = req.body
 
-    if (isDemandChargeEnabled === 1) {
+    if (enableDemandCharge === 1) {
       if (!(demandweekdayschedule && demandweekdayschedule.length > 0)) {
         return Promise.reject();
       }
@@ -64,10 +64,10 @@ const utilityRateValidator = (appContext: AppContext): ValidationChain[] => [
 
   check('demandweekendschedule').custom(async (demandweekendschedule, { req }) => {
     const {
-      isDemandChargeEnabled
+      enableDemandCharge
     } = req.body
 
-    if (isDemandChargeEnabled === 1) {
+    if (enableDemandCharge === 1) {
       if (!(demandweekendschedule && demandweekendschedule.length > 0)) {
         return Promise.reject();
       }
@@ -76,10 +76,10 @@ const utilityRateValidator = (appContext: AppContext): ValidationChain[] => [
 
   check('demandratestructure').custom(async (demandRateStructure, { req }) => {
     const {
-      isDemandChargeEnabled
+      enableDemandCharge
     } = req.body
 
-    if (isDemandChargeEnabled === 1) {
+    if (enableDemandCharge === 1) {
       if (!(demandRateStructure && demandRateStructure.length > 0)) {
         return Promise.reject();
       }
@@ -88,10 +88,10 @@ const utilityRateValidator = (appContext: AppContext): ValidationChain[] => [
 
   check('flatdemandstructure').custom(async (flatDemandStructure, { req }) => {
     const {
-      isDemandChargeEnabled
+      enableDemandCharge
     } = req.body
 
-    if (isDemandChargeEnabled === 1) {
+    if (enableDemandCharge === 1) {
       if (!(flatDemandStructure && flatDemandStructure.length > 0)) {
         return Promise.reject();
       }
