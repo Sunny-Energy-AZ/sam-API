@@ -2,23 +2,23 @@ import { AppContext } from '@typings';
 import { check, ValidationChain } from 'express-validator';
 
 const battWattsValidator = (appContext: AppContext): ValidationChain[] => [
-  check('isBatteryEnabled').isIn([0, 1]).withMessage('VALIDATION_ERRORS.INVALID_ENABLE_BATTERY'),
+  check('enableBattery').isIn([0, 1]).withMessage('VALIDATION_ERRORS.INVALID_ENABLE_BATTERY'),
 
-  check('batteryChemistryEnum').isIn([0, 1]).withMessage('VALIDATION_ERRORS.INVALID_BATTERY_CHEMISTRY'),
+  check('batteryChemistry').isIn([0, 1]).withMessage('VALIDATION_ERRORS.INVALID_BATTERY_CHEMISTRY'),
 
   check('batteryCapacityInkWh').isFloat({ min: 0 }).withMessage('VALIDATION_ERRORS.INVALID_BATTERY_CAPACITY'),
 
   check('batteryPowerInkW').isFloat({ min: 0 }).withMessage('VALIDATION_ERRORS.INVALID_BATTERY_POWER'),
 
-  check('batteryDispatchEnum').isIn([0, 1, 4]).withMessage('VALIDATION_ERRORS.INVALID_BATTERY_DISPATCH'),
+  check('batteryDispatch').isIn([0, 1, 4]).withMessage('VALIDATION_ERRORS.INVALID_BATTERY_DISPATCH'),
 
   check('chargeFromPV').custom(async (chargeFromPV, { req }) => {
     const {
-      batteryDispatchEnum,
-      isBatteryEnabled
+      batteryDispatch,
+      enableBattery
     } = req.body
 
-    if (isBatteryEnabled === 1 && batteryDispatchEnum === 4) {
+    if (enableBattery === 1 && batteryDispatch === 4) {
       if (!(chargeFromPV && chargeFromPV.length > 0)) {
         return Promise.reject();
       }
@@ -27,11 +27,11 @@ const battWattsValidator = (appContext: AppContext): ValidationChain[] => [
 
   check('chargeFromGrid').custom(async (chargeFromGrid, { req }) => {
     const {
-      batteryDispatchEnum,
-      isBatteryEnabled
+      batteryDispatch,
+      enableBattery
     } = req.body
 
-    if (isBatteryEnabled === 1 && batteryDispatchEnum === 4) {
+    if (enableBattery === 1 && batteryDispatch === 4) {
       if (!(chargeFromGrid && chargeFromGrid.length > 0)) {
         return Promise.reject();
       }
@@ -40,11 +40,11 @@ const battWattsValidator = (appContext: AppContext): ValidationChain[] => [
 
   check('discharge').custom(async (discharge, { req }) => {
     const {
-      batteryDispatchEnum,
-      isBatteryEnabled
+      batteryDispatch,
+      enableBattery
     } = req.body
 
-    if (isBatteryEnabled === 1 && batteryDispatchEnum === 4) {
+    if (enableBattery === 1 && batteryDispatch === 4) {
       if (!(discharge && discharge.length > 0)) {
         return Promise.reject();
       }
@@ -53,25 +53,25 @@ const battWattsValidator = (appContext: AppContext): ValidationChain[] => [
 
   check('chargeFromGridPercenrage').custom(async (chargeFromGridPercenrage, { req }) => {
     const {
-      batteryDispatchEnum,
-      isBatteryEnabled
+      batteryDispatch,
+      enableBattery
     } = req.body
 
-    if (isBatteryEnabled === 1 && batteryDispatchEnum === 4) {
+    if (enableBattery === 1 && batteryDispatch === 4) {
       if (!(chargeFromGridPercenrage && chargeFromGridPercenrage.length > 0)) {
         return Promise.reject();
       }
     }
   }).withMessage('VALIDATION_ERRORS.INVALID_CHARGE_FROM_GRID_PERCENT'),
 
-  check('dischargePercentage').custom(async (dischargePercentage, { req }) => {
+  check('setDischargePercentage').custom(async (setDischargePercentage, { req }) => {
     const {
-      batteryDispatchEnum,
-      isBatteryEnabled
+      batteryDispatch,
+      enableBattery
     } = req.body
 
-    if (isBatteryEnabled === 1 && batteryDispatchEnum === 4) {
-      if (!(dischargePercentage && dischargePercentage.length > 0)) {
+    if (enableBattery === 1 && batteryDispatch === 4) {
+      if (!(setDischargePercentage && setDischargePercentage.length > 0)) {
         return Promise.reject();
       }
     }
@@ -79,11 +79,11 @@ const battWattsValidator = (appContext: AppContext): ValidationChain[] => [
 
   check('manualDispatchWeekday').custom(async (manualDispatchWeekday, { req }) => {
     const {
-      batteryDispatchEnum,
-      isBatteryEnabled
+      batteryDispatch,
+      enableBattery
     } = req.body
 
-    if (isBatteryEnabled === 1 && batteryDispatchEnum === 4) {
+    if (enableBattery === 1 && batteryDispatch === 4) {
       if (!(manualDispatchWeekday && manualDispatchWeekday.length > 0)) {
         return Promise.reject();
       }
@@ -92,11 +92,11 @@ const battWattsValidator = (appContext: AppContext): ValidationChain[] => [
 
   check('manualDispatchWeekend').custom(async (manualDispatchWeekend, { req }) => {
     const {
-      batteryDispatchEnum,
-      isBatteryEnabled
+      batteryDispatch,
+      enableBattery
     } = req.body
 
-    if (isBatteryEnabled === 1 && batteryDispatchEnum === 4) {
+    if (enableBattery === 1 && batteryDispatch === 4) {
       if (!(manualDispatchWeekend && manualDispatchWeekend.length > 0)) {
         return Promise.reject();
       }
@@ -111,7 +111,7 @@ const battWattsValidator = (appContext: AppContext): ValidationChain[] => [
 
   check('efficiency').isFloat({ min: 90, max: 99.5 }).withMessage('VALIDATION_ERRORS.INVALID_INVERTER_EFFICIENCY'),
 
-  check('hourlyUtilityElectricalLoadPreSolarInKWH').isArray({ min: 1 }).withMessage('VALIDATION_ERRORS.INVALID_ELECTRICAL_LOAD'),
+  check('electricityLoad').isArray({ min: 1 }).withMessage('VALIDATION_ERRORS.INVALID_ELECTRICAL_LOAD'),
 ];
 
 export default battWattsValidator;

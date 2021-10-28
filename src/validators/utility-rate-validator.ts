@@ -4,7 +4,7 @@ import { check, ValidationChain } from 'express-validator';
 const utilityRateValidator = (appContext: AppContext): ValidationChain[] => [
   check('analysisPeriod').isInt({ min: 1 }).withMessage('VALIDATION_ERRORS.INVALID_ANALYSIS_PERIOD'),
 
-  check('systemUseLifetimeOutput').isIn([0, 1]).withMessage('VALIDATION_ERRORS.INVALID_SYSTEM_USE_LIFETIME_OUTPUT'),
+  check('systemuseLifetimeOutput').isIn([0, 1]).withMessage('VALIDATION_ERRORS.INVALID_SYSTEM_USE_LIFETIME_OUTPUT'),
 
   check('systemPower').isArray().withMessage('VALIDATION_ERRORS.INVALID_SYSTEM_POWER'),
 
@@ -26,14 +26,14 @@ const utilityRateValidator = (appContext: AppContext): ValidationChain[] => [
 
   check('useNetMetering').isIn([0, 1]).withMessage('VALIDATION_ERRORS.INVALID_NET_METERING'),
 
-  check('isTimeStepSellRatesEnabled').isIn([0, 1]).withMessage('VALIDATION_ERRORS.INVALID_TIME_STEP_ENABLED'),
+  check('enableTimeStepSellRates').isIn([0, 1]).withMessage('VALIDATION_ERRORS.INVALID_TIME_STEP_ENABLED'),
 
   check('timeStepSellRates').custom(async (timeStepSellRates, { req }) => {
     const {
-      isTimeStepSellRatesEnabled
+      enableTimeStepSellRates
     } = req.body
 
-    if (isTimeStepSellRatesEnabled === 1) {
+    if (enableTimeStepSellRates === 1) {
       if (!(timeStepSellRates && timeStepSellRates.length > 0)) {
         return Promise.reject();
       }
@@ -48,18 +48,38 @@ const utilityRateValidator = (appContext: AppContext): ValidationChain[] => [
 
   check('energyratestructure').isArray().withMessage('VALIDATION_ERRORS.INVALID_ENERGY_RATE_STRUCTURE'),
 
-  check('isDemandChargeEnabled').isIn([0, 1]).withMessage('VALIDATION_ERRORS.INVALID_DEMAND_CHARGE_ENABLED'),
+  check('enableDemandCharge').isIn([0, 1]).withMessage('VALIDATION_ERRORS.INVALID_DEMAND_CHARGE_ENABLED'),
 
-  check('demandweekdayschedule').isArray().withMessage('VALIDATION_ERRORS.INVALID_DEMAND_WEEKDAY_SCHEDULE'),
+  check('demandweekdayschedule').custom(async (demandweekdayschedule, { req }) => {
+    const {
+      enableDemandCharge
+    } = req.body
 
-  check('demandweekendschedule').isArray().withMessage('VALIDATION_ERRORS.INVALID_DEMAND_WEEKEND_SCHEDULE'),
+    if (enableDemandCharge === 1) {
+      if (!(demandweekdayschedule && demandweekdayschedule.length > 0)) {
+        return Promise.reject();
+      }
+    }
+  }).withMessage('VALIDATION_ERRORS.INVALID_DEMAND_WEEKDAY_SCHEDULE'),
+
+  check('demandweekendschedule').custom(async (demandweekendschedule, { req }) => {
+    const {
+      enableDemandCharge
+    } = req.body
+
+    if (enableDemandCharge === 1) {
+      if (!(demandweekendschedule && demandweekendschedule.length > 0)) {
+        return Promise.reject();
+      }
+    }
+  }).withMessage('VALIDATION_ERRORS.INVALID_DEMAND_WEEKEND_SCHEDULE'),
 
   check('demandratestructure').custom(async (demandRateStructure, { req }) => {
     const {
-      isDemandChargeEnabled
+      enableDemandCharge
     } = req.body
 
-    if (isDemandChargeEnabled === 1) {
+    if (enableDemandCharge === 1) {
       if (!(demandRateStructure && demandRateStructure.length > 0)) {
         return Promise.reject();
       }
@@ -68,10 +88,10 @@ const utilityRateValidator = (appContext: AppContext): ValidationChain[] => [
 
   check('flatdemandstructure').custom(async (flatDemandStructure, { req }) => {
     const {
-      isDemandChargeEnabled
+      enableDemandCharge
     } = req.body
 
-    if (isDemandChargeEnabled === 1) {
+    if (enableDemandCharge === 1) {
       if (!(flatDemandStructure && flatDemandStructure.length > 0)) {
         return Promise.reject();
       }
