@@ -3,6 +3,8 @@ import { DeleteResult, IDataStore, QueryOptions } from '@storage';
 import { LooseObject } from '@typings';
 import config from 'config';
 import { connect, ConnectionOptions, Document, Model as MongoosModel, Mongoose, Types } from 'mongoose';
+import NSRDBSolarWeather from './nsrdb-solar-weather';
+import { REPOSITORY_CONSTANTS } from '../repositories';
 
 export class MongoStore implements IDataStore {
   public connect(): Promise<Mongoose> {
@@ -197,6 +199,9 @@ export class MongoStore implements IDataStore {
   }
 
   private getModel<T extends BaseModel>(modelFactory: ModelFactory<T>): MongoosModel<Document> {
+    if (modelFactory.getType() === REPOSITORY_CONSTANTS.REPOSITORY_TYPE.NSRDB_SOLAR_WEATHER) {
+      return NSRDBSolarWeather;
+    }
     return null;
   }
 }

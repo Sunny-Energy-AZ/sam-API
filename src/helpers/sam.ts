@@ -34,7 +34,13 @@ export const ensureWeatherFileOnS3AndDownloadLocally = async (
   let weatherFileResponseBody = await getWeatherDataFromNSRDB(latLonObj.lt, latLonObj.ln);
 
   if (!weatherFileResponseBody) {
-    return Promise.reject(new Error('weather data not found'));
+    const resp = await ctx.NSRDBSolarWeatherRepository.getNearestWeatherData(
+      latLonObj.lt.toString(),
+      latLonObj.ln.toString()
+    );
+
+    const { data } = await axios.get(resp.s3File);
+    weatherFileResponseBody = data;
   }
 
   const weatherDataRecords: [][] = await new Promise((resolve, reject) => {
