@@ -18,6 +18,7 @@ const repositoryContext = {
 
 const appContext: AppContext = {
   logger,
+  NSRDBSolarWeatherRepository: new Repositories.NSRDBSolarWeatherRepository(repositoryContext),
 };
 
 mongoStore
